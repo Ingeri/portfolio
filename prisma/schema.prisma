@@ -1,0 +1,69 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  password  String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model Project {
+  id        String   @id @default(cuid())
+  name      String
+  role      String
+  summary   String
+  tech      String
+  ratings   Rating[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([createdAt])
+}
+
+model BlogArticle {
+  id        String   @id @default(cuid())
+  title     String
+  excerpt   String
+  content   String?
+  date      String
+  category  String
+  readTime  String
+  ratings   Rating[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([createdAt])
+}
+
+model Rating {
+  id          String   @id @default(cuid())
+  score       Int      @db.SmallInt // 1-5 rating
+  userName    String
+  userEmail   String?
+  comment     String?
+  
+  // Relations
+  projectId   String?
+  project     Project?  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  articleId   String?
+  article     BlogArticle? @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([projectId])
+  @@index([articleId])
+  @@index([createdAt])
+}

@@ -1,86 +1,17 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
-const translations = {
-  en: {
-    settings: "Settings",
-    title: "Customize your experience",
-    description: "Personalize your portfolio viewing preferences.",
-    languageTitle: "Language",
-    languageDescription: "Choose your preferred language for the website.",
-    accessibilityTitle: "Accessibility",
-    fontSizeLabel: "Font Size",
-    notificationsTitle: "Notifications",
-    notificationsDescription: "Get notified about important updates and messages.",
-    savedNote: "Your selected language and display preferences are saved locally.",
-  },
-  es: {
-    settings: "Configuración",
-    title: "Personaliza tu experiencia",
-    description: "Ajusta las preferencias de visualización de tu portafolio.",
-    languageTitle: "Idioma",
-    languageDescription: "Elige tu idioma preferido para el sitio web.",
-    accessibilityTitle: "Accesibilidad",
-    fontSizeLabel: "Tamaño de fuente",
-    notificationsTitle: "Notificaciones",
-    notificationsDescription: "Recibe actualizaciones importantes y mensajes.",
-    savedNote: "Tus ajustes se guardan localmente.",
-  },
-  fr: {
-    settings: "Paramètres",
-    title: "Personnalisez votre expérience",
-    description: "Personnalisez les préférences d'affichage de votre portfolio.",
-    languageTitle: "Langue",
-    languageDescription: "Choisissez votre langue préférée pour le site.",
-    accessibilityTitle: "Accessibilité",
-    fontSizeLabel: "Taille de police",
-    notificationsTitle: "Notifications",
-    notificationsDescription: "Recevez des mises à jour et des messages importants.",
-    savedNote: "Vos préférences sont enregistrées localement.",
-  },
-  de: {
-    settings: "Einstellungen",
-    title: "Passen Sie Ihre Erfahrung an",
-    description: "Personalisieren Sie die Anzeigeeinstellungen Ihres Portfolios.",
-    languageTitle: "Sprache",
-    languageDescription: "Wähle deine bevorzugte Sprache für die Website.",
-    accessibilityTitle: "Barrierefreiheit",
-    fontSizeLabel: "Schriftgröße",
-    notificationsTitle: "Benachrichtigungen",
-    notificationsDescription: "Erhalte wichtige Updates und Nachrichten.",
-    savedNote: "Deine Einstellungen werden lokal gespeichert.",
-  },
-  ja: {
-    settings: "設定",
-    title: "エクスペリエンスをカスタマイズ",
-    description: "ポートフォリオの表示設定をパーソナライズします。",
-    languageTitle: "言語",
-    languageDescription: "ウェブサイトの使用言語を選択してください。",
-    accessibilityTitle: "アクセシビリティ",
-    fontSizeLabel: "フォントサイズ",
-    notificationsTitle: "通知",
-    notificationsDescription: "重要な更新やメッセージを受け取ります。",
-    savedNote: "設定はローカルに保存されます。",
-  },
-};
+import { useLanguage, translations } from "@/context/LanguageContext";
 
 export default function SettingsPage() {
-  const [language, setLanguage] = useState<keyof typeof translations>("en");
+  const { language, setLanguage, t } = useLanguage();
   const [notifications, setNotifications] = useState(true);
   const [fontSize, setFontSize] = useState("normal");
 
   useEffect(() => {
-    const storedLanguage = localStorage.getItem("language");
     const storedNotifications = localStorage.getItem("notifications");
     const storedFontSize = localStorage.getItem("fontSize");
 
-    if (storedLanguage) {
-      const langKey = storedLanguage as keyof typeof translations;
-      if (translations[langKey]) {
-        setLanguage(langKey);
-      }
-    }
     if (storedNotifications !== null) {
       setNotifications(storedNotifications === "true");
     }
@@ -88,10 +19,6 @@ export default function SettingsPage() {
       setFontSize(storedFontSize);
     }
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem("language", language);
-  }, [language]);
 
   useEffect(() => {
     localStorage.setItem("notifications", String(notifications));
@@ -102,8 +29,6 @@ export default function SettingsPage() {
     document.documentElement.style.fontSize =
       fontSize === "small" ? "14px" : fontSize === "large" ? "18px" : "16px";
   }, [fontSize]);
-
-  const t = translations[language];
 
   const languages = [
     { code: "en", name: "English" },
