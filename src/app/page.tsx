@@ -1,53 +1,57 @@
+"use client";
+
 import HeroAnimation from "@/components/HeroAnimation";
-
-const stats = [
-  { label: "Projects delivered", value: "12+" },
-  { label: "Years experience", value: "4+" },
-  { label: "Tech stack", value: "React · Next.js · Node.js" },
-];
-
-const featured = [
-  {
-    title: "Design systems built for scale",
-    description: "Reusable UI patterns, accessibility-first layouts, and component-driven workflows for fast delivery.",
-  },
-  {
-    title: "Full-stack product delivery",
-    description: "From frontend interfaces to backend APIs, I ship end-to-end solutions with reliability and speed.",
-  },
-  {
-    title: "High-performance experiences",
-    description: "I optimize loading, interactions, and visuals so products feel polished and responsive.",
-  },
-];
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Home() {
+  const { t } = useLanguage();
+
+  const stats = [
+    { label: t.projectsDelivered, value: "12+" },
+    { label: t.yearsExperience, value: "4+" },
+    { label: t.techStack, value: "React · Next.js · Node.js" },
+  ];
+
+  const featured = [
+    {
+      title: t.designSystems,
+      description: t.designSystemsDesc,
+    },
+    {
+      title: t.fullStack,
+      description: t.fullStackDesc,
+    },
+    {
+      title: t.highPerformance,
+      description: t.highPerformanceDesc,
+    },
+  ];
+
   return (
     <main className="max-w-6xl mx-auto px-4 py-16 space-y-24">
       <section className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] items-center">
         <div className="space-y-8">
           <p className="text-sm uppercase tracking-[0.3em] text-blue-600 font-semibold">
-            Web & Software Developer
+            {t.webDeveloper}
           </p>
           <h1 className="text-5xl md:text-6xl font-bold leading-tight">
-            I create interactive web products and software tools with polished animation and real engineering quality.
+            {t.heroTitle}
           </h1>
           <p className="max-w-xl text-lg leading-8 text-slate-600">
-            I build interfaces that move naturally, APIs that scale reliably, and software that supports real business value.
-            Explore work across frontend, backend, and full-stack delivery.
+            {t.heroDescription}
           </p>
           <div className="flex flex-wrap gap-4">
             <a
               href="/projects"
               className="inline-block bg-blue-600 text-white px-7 py-3 rounded-full shadow-lg shadow-blue-200/40 hover:bg-blue-700 transition"
             >
-              See Projects
+              {t.seeProjects}
             </a>
             <a
               href="/about"
               className="inline-block border border-slate-300 text-slate-900 px-7 py-3 rounded-full hover:border-blue-600 hover:text-blue-600 transition"
             >
-              Learn About Me
+              {t.learnAbout}
             </a>
           </div>
         </div>
