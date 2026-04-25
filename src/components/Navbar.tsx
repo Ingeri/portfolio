@@ -4,17 +4,19 @@ import Link from "next/link";
 import { useState } from "react";
 import SearchBar from "./SearchBar";
 import ThemeToggle from "./ThemeToggle";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useLanguage();
 
   const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Projects", href: "/projects" },
-    { name: "Blog", href: "/blog" },
-    { name: "Contact", href: "/contact" },
-    { name: "Settings", href: "/settings" },
+    { name: t.home, href: "/" },
+    { name: t.about, href: "/about" },
+    { name: t.projects, href: "/projects" },
+    { name: t.blog, href: "/blog" },
+    { name: t.contact, href: "/contact" },
+    { name: t.settings, href: "/settings" },
   ];
 
   return (

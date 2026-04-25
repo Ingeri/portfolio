@@ -1,66 +1,68 @@
-const articles = [
-  {
-    id: 1,
-    title: "Building Modern Web Interfaces with React and Tailwind",
-    excerpt: "Learn how to create beautiful, responsive user interfaces using React and Tailwind CSS with practical examples and best practices.",
-    date: "April 15, 2026",
-    category: "Frontend",
-    readTime: "8 min read",
-  },
-  {
-    id: 2,
-    title: "Scaling Node.js APIs for Production",
-    excerpt: "Deep dive into building scalable and performant REST APIs using Node.js, Express, and best practices for production environments.",
-    date: "April 10, 2026",
-    category: "Backend",
-    readTime: "12 min read",
-  },
-  {
-    id: 3,
-    title: "Next.js 16 - What's New and Exciting",
-    excerpt: "Explore the latest features in Next.js 16, including improved performance, new rendering options, and developer experience enhancements.",
-    date: "April 5, 2026",
-    category: "Framework",
-    readTime: "10 min read",
-  },
-  {
-    id: 4,
-    title: "TypeScript Best Practices for Large Projects",
-    excerpt: "Master TypeScript with advanced patterns, type safety strategies, and architectural approaches for maintaining large codebases.",
-    date: "March 28, 2026",
-    category: "TypeScript",
-    readTime: "15 min read",
-  },
-  {
-    id: 5,
-    title: "The Art of Component Design Systems",
-    excerpt: "Discover how to build and maintain effective component libraries that scale with your organization's needs.",
-    date: "March 20, 2026",
-    category: "Design",
-    readTime: "9 min read",
-  },
-  {
-    id: 6,
-    title: "Deploying Full-Stack Applications Successfully",
-    excerpt: "Complete guide to deploying modern full-stack applications on various platforms with CI/CD pipelines and monitoring.",
-    date: "March 15, 2026",
-    category: "DevOps",
-    readTime: "11 min read",
-  },
-];
+"use client";
+
+import { useLanguage } from "@/context/LanguageContext";
+import { useEffect, useState } from "react";
+
+interface Article {
+  id: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  category: string;
+  readTime: string;
+}
 
 export default function BlogPage() {
+  const { t } = useLanguage();
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        const res = await fetch('/api/admin/blog');
+        const data = await res.json();
+        setArticles(data);
+      } catch (error) {
+        console.error('Error fetching articles:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchArticles();
+  }, []);
+
+  if (loading) {
+    return (
+      <main className="max-w-4xl mx-auto px-4 py-16 space-y-16">
+        <section className="space-y-4 animate-fade-in">
+          <p className="text-sm uppercase tracking-[0.3em] text-blue-600 font-semibold">
+            {t.articles}
+          </p>
+          <h1 className="text-5xl md:text-6xl font-display font-bold">
+            {t.blogTitle}
+          </h1>
+          <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl">
+            {t.blogDesc}
+          </p>
+        </section>
+        <div className="text-center text-slate-500">Loading articles...</div>
+      </main>
+    );
+  }
+
   return (
     <main className="max-w-4xl mx-auto px-4 py-16 space-y-16">
       <section className="space-y-4 animate-fade-in">
         <p className="text-sm uppercase tracking-[0.3em] text-blue-600 font-semibold">
-          Articles
+          {t.articles}
         </p>
         <h1 className="text-5xl md:text-6xl font-display font-bold">
-          Thoughts on web development, software architecture, and modern tooling.
+          {t.blogTitle}
         </h1>
         <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl">
-          Sharing insights from years of building scalable web applications and tackling real-world engineering challenges.
+          {t.blogDesc}
         </p>
       </section>
 
@@ -93,7 +95,7 @@ export default function BlogPage() {
                 {article.date}
               </time>
               <button className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium text-sm group-hover-scale transition-all">
-                Read →
+                {t.readMore}
               </button>
             </div>
           </article>
