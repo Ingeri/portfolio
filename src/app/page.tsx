@@ -37,19 +37,19 @@ export default function Home() {
           <h1 className="text-5xl md:text-6xl font-bold leading-tight">
             {t.heroTitle}
           </h1>
-          <p className="max-w-xl text-lg leading-8 text-slate-600">
+          <p className="max-w-xl text-lg leading-8 text-slate-600 dark:text-slate-400">
             {t.heroDescription}
           </p>
           <div className="flex flex-wrap gap-4">
             <a
               href="/projects"
-              className="inline-block bg-blue-600 text-white px-7 py-3 rounded-full shadow-lg shadow-blue-200/40 hover:bg-blue-700 transition"
+              className="inline-block bg-blue-600 text-white px-7 py-3 rounded-full shadow-lg shadow-blue-200/40 hover:bg-blue-700 transition dark:shadow-blue-900/40"
             >
               {t.seeProjects}
             </a>
             <a
               href="/about"
-              className="inline-block border border-slate-300 text-slate-900 px-7 py-3 rounded-full hover:border-blue-600 hover:text-blue-600 transition"
+              className="inline-block border border-slate-300 text-blue-600 px-7 py-3 rounded-full hover:border-blue-600 hover:text-blue-600 transition dark:border-slate-600 dark:text-blue-400 dark:hover:border-blue-400 dark:hover:text-blue-400"
             >
               {t.learnAbout}
             </a>
@@ -61,18 +61,18 @@ export default function Home() {
 
       <section className="grid gap-6 sm:grid-cols-3">
         {stats.map((stat) => (
-          <div key={stat.label} className="rounded-[2rem] border border-slate-200 bg-white p-8 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-md">
-            <p className="text-4xl font-bold text-slate-900">{stat.value}</p>
-            <p className="mt-3 text-sm uppercase tracking-[0.3em] text-slate-500">{stat.label}</p>
+          <div key={stat.label} className="rounded-[2rem] border border-slate-200 bg-white p-8 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-md dark:border-slate-700 dark:bg-slate-900 dark:shadow-md">
+            <p className="text-4xl font-bold text-slate-900 dark:text-white">{stat.value}</p>
+            <p className="mt-3 text-sm uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">{stat.label}</p>
           </div>
         ))}
       </section>
 
       <section className="grid gap-6 md:grid-cols-3">
         {featured.map((item) => (
-          <article key={item.title} className="rounded-[2rem] border border-slate-200 bg-slate-950/5 p-8 shadow-sm backdrop-blur-xl transition hover:-translate-y-1 hover:shadow-lg">
+          <article key={item.title} className="rounded-[2rem] border border-slate-200 bg-slate-950/5 p-8 shadow-sm backdrop-blur-xl transition hover:-translate-y-1 hover:shadow-lg dark:border-slate-700 dark:bg-slate-900/50 dark:shadow-lg">
             <h2 className="text-xl font-semibold mb-4">{item.title}</h2>
-            <p className="text-slate-600 leading-7">{item.description}</p>
+            <p className="text-slate-600 leading-7 dark:text-slate-400">{item.description}</p>
           </article>
         ))}
       </section>

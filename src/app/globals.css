@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap');
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: #fafaf8;
@@ -12,35 +14,14 @@
   --border-dark: #2e2e2b;
 }
 
-html[data-theme="light"] {
-  --background: #fafaf8;
-  --foreground: #1a1a18;
-  --border: #e5e5e3;
-  --border-dark: #2e2e2b;
-}
-
-html[data-theme="dark"], html.dark {
+html.dark {
   --background: #0f0f0d;
   --foreground: #fafaf8;
   --border: #2e2e2b;
   --border-dark: #e5e5e3;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: "Inter", sans-serif;
-  --font-display: "Syne", sans-serif;
-}
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    --background: #0f0f0d;
-    --foreground: #fafaf8;
-    --border: #2e2e2b;
-    --border-dark: #e5e5e3;
-  }
-}
 
 html {
   scroll-behavior: smooth;
