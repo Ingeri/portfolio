@@ -117,6 +117,57 @@ async function main() {
 
     console.log(`✅ ${articles.count} blog articles seeded`);
 
+    // Seed Testimonials (from your original site)
+    const testimonials = await prisma.testimonial.createMany({
+      data: [
+        {
+          name: 'Eric I.',
+          role: 'Small Business Owner',
+          content: 'Working with Tresor was a great experience. He built my business website from scratch, and it turned out even better than I imagined.',
+        },
+        {
+          name: 'Ronald M.',
+          role: 'ICT Training Participant',
+          content: 'His teaching style is patient and clear, and he explains even the hard parts in a simple way. I highly recommend him.',
+        },
+        {
+          name: 'Geofrey K.',
+          role: 'NGO Coordinator',
+          content: 'Tresor delivered exactly what we asked for. The final product was responsive, clean, and easy to manage.',
+        },
+      ],
+      skipDuplicates: true,
+    });
+    console.log(`✅ ${testimonials.count} testimonials seeded`);
+
+    // Seed Work Process (to showcase engineering approach)
+    const processes = await prisma.workProcess.createMany({
+      data: [
+        {
+          stepNumber: 1,
+          title: 'Planning',
+          description: 'Analyzing requirements and architecting the clean code solution.',
+        },
+        {
+          stepNumber: 2,
+          title: 'Development',
+          description: 'Building high-performance interfaces with React and Tailwind CSS.',
+        },
+        {
+          stepNumber: 3,
+          title: 'Testing',
+          description: 'Ensuring backend reliability and frontend responsiveness.',
+        },
+        {
+          stepNumber: 4,
+          title: 'Deployment',
+          description: 'Final web deployment process and performance optimization.',
+        },
+      ],
+      skipDuplicates: true,
+    });
+    console.log(`✅ ${processes.count} process steps seeded`);
+
     console.log('🎉 Database seeding completed successfully!');
   } catch (error) {
     console.error('❌ Error seeding database:', error);

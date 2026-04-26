@@ -6,15 +6,19 @@ import AIAssistant from "@/components/AIAssistant";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { AdminProvider } from "@/context/AdminContext";
 import { ReactNode } from "react";
+import { usePathname } from "next/navigation";
 
 export default function LayoutClient({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+  const isAdminRoute = pathname?.startsWith('/admin');
+
   return (
     <AdminProvider>
       <LanguageProvider>
-        <NavbarWrapper />
+        {!isAdminRoute && <NavbarWrapper />}
         {children}
-        <Footer />
-        <AIAssistant />
+        {!isAdminRoute && <Footer />}
+        {!isAdminRoute && <AIAssistant />}
       </LanguageProvider>
     </AdminProvider>
   );

@@ -1,8 +1,9 @@
 // prisma/schema.prisma
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 generator client {
@@ -18,15 +19,22 @@ model AdminUser {
 }
 
 model Project {
-  id        String   @id @default(cuid())
-  name      String
-  role      String
-  summary   String
-  tech      String
-  ratings   Rating[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(cuid())
+  name        String
+  role        String
+  summary     String
+  tech        String   // Comma-separated tags like "React, TypeScript, Tailwind"
+  imageUrl    String?  // Optional project screenshot/image
+  projectUrl  String?  // Link to live project
+  githubUrl   String?  // Link to source code
+  isFeatured  Boolean  @default(false) // Show on homepage
+  order       Int      @default(0)    // Display order on homepage
+  ratings     Rating[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
+  @@index([isFeatured])
+  @@index([order])
   @@index([createdAt])
 }
 
@@ -64,4 +72,38 @@ model Rating {
   @@index([projectId])
   @@index([articleId])
   @@index([createdAt])
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  role      String
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model WorkProcess {
+  id          String   @id @default(cuid())
+  stepNumber  Int      @unique
+  title       String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([stepNumber])
+}
+
+model Feature {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  icon        String?  // Optional icon name (e.g., "design", "code", "performance")
+  order       Int      @default(0) // Display order
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([order])
+  @@index([isActive])
 }

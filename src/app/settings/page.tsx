@@ -44,9 +44,9 @@ export default function SettingsPage() {
         <p className="text-sm uppercase tracking-[0.3em] text-blue-600 font-semibold">
           {t.settings}
         </p>
-        <h1 className="text-4xl font-display font-bold">{t.title}</h1>
+        <h1 className="text-4xl font-display font-bold">{t.settingsTitle}</h1>
         <p className="text-lg text-slate-600 dark:text-slate-400">
-          {t.description}
+          {t.settingsDescription}
         </p>
       </section>
 
