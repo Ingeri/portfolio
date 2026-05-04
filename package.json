@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "eslint",
     "db:generate": "prisma generate",
@@ -13,14 +13,18 @@
     "db:studio": "prisma studio"
   },
   "dependencies": {
+    "@prisma/config": "^7.8.0",
     "@supabase/supabase-js": "^2.104.0",
     "bcryptjs": "^3.0.3",
+    "dotenv": "^17.4.2",
+    "lucide-react": "^1.11.0",
     "next": "16.2.4",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
   "devDependencies": {
     "@prisma/client": "^5.22.0",
+    "@types/dotenv": "^8.2.3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

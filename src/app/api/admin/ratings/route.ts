@@ -54,6 +54,10 @@ export async function GET(request: NextRequest) {
     const ratings = await prisma.rating.findMany({
       where: { ...where },
       orderBy: { createdAt: 'desc' },
+      include: {
+        project: { select: { name: true } },
+        article: { select: { title: true } },
+      },
     });
 
     return NextResponse.json(ratings);

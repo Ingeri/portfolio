@@ -5,10 +5,12 @@ import { useState } from "react";
 import SearchBar from "./SearchBar";
 import ThemeToggle from "./ThemeToggle";
 import { useLanguage } from "@/context/LanguageContext";
+import { Globe, Check } from "lucide-react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const { t } = useLanguage();
+  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
+  const { t, language, setLanguage } = useLanguage();
 
   const navLinks = [
     { name: t.home, href: "/" },
@@ -41,6 +43,44 @@ export default function Navbar() {
 
         <div className="flex items-center gap-4">
           <SearchBar />
+          {/* Language Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setLangDropdownOpen(!langDropdownOpen)}
+              className="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors dark:text-slate-300 dark:hover:bg-slate-800"
+              aria-label="Select language"
+            >
+              <Globe className="w-5 h-5" />
+              <span className="text-sm font-medium uppercase">{language}</span>
+            </button>
+            
+            {langDropdownOpen && (
+              <div className="absolute right-0 top-full mt-2 w-40 rounded-xl border border-slate-200 bg-white shadow-lg dark:border-slate-700 dark:bg-slate-900 overflow-hidden">
+                {[
+                  { code: "en", label: "English" },
+                  { code: "fr", label: "French" },
+                  { code: "rw", label: "Kinyarwanda" },
+                ].map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => {
+                      setLanguage(lang.code as "en" | "es" | "fr" | "de" | "ja" | "rw");
+                      setLangDropdownOpen(false);
+                    }}
+                    className={`w-full flex items-center justify-between px-4 py-3 text-left text-sm transition-colors hover:bg-slate-50 dark:hover:bg-slate-800 ${
+                      language === lang.code
+                        ? "bg-blue-50 text-blue-600 dark:bg-blue-950/20 dark:text-blue-400"
+                        : "text-slate-700 dark:text-slate-300"
+                    }`}
+                  >
+                    {lang.label}
+                    {language === lang.code && <Check className="w-4 h-4" />}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+          
           <ThemeToggle />
           <button
             onClick={() => setIsOpen(!isOpen)}

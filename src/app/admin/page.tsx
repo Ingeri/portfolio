@@ -4,6 +4,7 @@ import { useAdmin } from '@/context/AdminContext';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import AdminDashboard from '@/components/AdminDashboard';
+import { Shield, Eye, EyeOff, Lock, Mail, ArrowRight, AlertCircle, Layers } from 'lucide-react';
 
 export default function AdminPage() {
   const { isAuthenticated, login, logout, isLoading } = useAdmin();
@@ -37,41 +38,63 @@ export default function AdminPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
-        <div className="text-white text-xl">Loading...</div>
+      <div className="min-h-screen bg-[#faf8ff] flex items-center justify-center">
+        <div className="flex items-center gap-3 text-[#777587]">
+          <div className="w-5 h-5 border-2 border-[#3525cd]/30 border-t-[#3525cd] rounded-full animate-spin" />
+          <span style={{ fontFamily: 'Inter, sans-serif' }}>Loading...</span>
+        </div>
       </div>
     );
   }
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center px-4">
+      <div className="min-h-screen bg-[#faf8ff] flex items-center justify-center px-4">
         <div className="w-full max-w-md">
-          <div className="bg-slate-800/80 backdrop-blur border border-slate-700 rounded-2xl p-8 shadow-2xl">
-            <h1 className="text-3xl font-bold text-white mb-2">Admin Login</h1>
-            <p className="text-slate-400 mb-8">Sign in to access the admin panel</p>
+          {/* Card */}
+          <div className="bg-white border border-[#dae2fd] rounded-lg p-8 shadow-[0_2px_8px_rgba(15,23,42,0.04)]">
+            {/* Logo/Header */}
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-10 h-10 bg-[#3525cd] rounded-lg flex items-center justify-center">
+                <Layers className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h1 className="text-lg font-semibold text-[#131b2e]" style={{ fontFamily: 'Manrope, sans-serif' }}>Portfolio Admin</h1>
+                <p className="text-xs text-[#464555]">Executive Suite</p>
+              </div>
+            </div>
+
+            <h2 className="text-2xl font-semibold text-[#131b2e] mb-2" style={{ fontFamily: 'Manrope, sans-serif' }}>Welcome back</h2>
+            <p className="text-sm text-[#464555] mb-6">Sign in to manage your portfolio content</p>
 
             <form onSubmit={handleLogin} className="space-y-4">
-              <div>
-                <label htmlFor="email" className="block text-sm font-semibold text-white mb-2">
-                  Email
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="admin@example.com"
-                  disabled={isLoggingIn}
-                  className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="password" className="block text-sm font-semibold text-white mb-2">
-                  Password
+              {/* Email Input */}
+              <div className="space-y-1.5">
+                <label htmlFor="email" className="block text-xs font-semibold text-[#131b2e] tracking-wide" style={{ fontFamily: 'Inter, sans-serif' }}>
+                  EMAIL ADDRESS
                 </label>
                 <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#777587]" />
+                  <input
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="admin@example.com"
+                    disabled={isLoggingIn}
+                    className="w-full pl-10 pr-4 py-2.5 bg-[#faf8ff] border border-[#c7c4d8] rounded-lg text-sm text-[#131b2e] placeholder-[#777587] focus:outline-none focus:ring-2 focus:ring-[#3525cd]/20 focus:border-[#3525cd] disabled:opacity-50 transition-all"
+                    style={{ fontFamily: 'Inter, sans-serif' }}
+                  />
+                </div>
+              </div>
+
+              {/* Password Input */}
+              <div className="space-y-1.5">
+                <label htmlFor="password" className="block text-xs font-semibold text-[#131b2e] tracking-wide" style={{ fontFamily: 'Inter, sans-serif' }}>
+                  PASSWORD
+                </label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#777587]" />
                   <input
                     id="password"
                     type={showPassword ? 'text' : 'password'}
@@ -79,53 +102,53 @@ export default function AdminPage() {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter your password"
                     disabled={isLoggingIn}
-                    className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50"
+                    className="w-full pl-10 pr-10 py-2.5 bg-[#faf8ff] border border-[#c7c4d8] rounded-lg text-sm text-[#131b2e] placeholder-[#777587] focus:outline-none focus:ring-2 focus:ring-[#3525cd]/20 focus:border-[#3525cd] disabled:opacity-50 transition-all"
+                    style={{ fontFamily: 'Inter, sans-serif' }}
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
                     disabled={isLoggingIn}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white disabled:opacity-50"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#777587] hover:text-[#464555] disabled:opacity-50 transition-colors"
                   >
-                    {showPassword ? (
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-4.803m5.596-3.856a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                    ) : (
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7C7.523 19 3.732 16.057 2.458 12z" />
-                      </svg>
-                    )}
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
               </div>
 
-              {error && <p className="text-red-400 text-sm">{error}</p>}
+              {/* Error Message */}
+              {error && (
+                <div className="flex items-center gap-2 p-3 bg-[#ffdad6] border border-[#ba1a1a]/20 rounded-lg">
+                  <AlertCircle className="w-4 h-4 text-[#ba1a1a] flex-shrink-0" />
+                  <p className="text-sm text-[#ba1a1a]" style={{ fontFamily: 'Inter, sans-serif' }}>{error}</p>
+                </div>
+              )}
 
+              {/* Submit Button */}
               <button
                 type="submit"
                 disabled={isLoggingIn || !email || !password}
-                className="w-full mt-6 px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-600 text-white font-semibold rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full flex items-center justify-center gap-2 px-6 py-2.5 bg-[#3525cd] hover:bg-[#4f46e5] disabled:bg-[#c7c4d8] text-white font-medium rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-[#3525cd]/20 shadow-sm"
+                style={{ fontFamily: 'Inter, sans-serif' }}
               >
-                {isLoggingIn ? 'Signing in...' : 'Sign In'}
+                {isLoggingIn ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Signing in...
+                  </>
+                ) : (
+                  <>
+                    Sign In
+                    <ArrowRight className="w-4 h-4" />
+                  </>
+                )}
               </button>
             </form>
 
-            <div className="mt-8 p-4 bg-slate-700/50 rounded-lg border border-slate-600">
-              <p className="text-xs text-slate-300 mb-2">
-                <strong>Demo Credentials:</strong>
-              </p>
-              <p className="text-xs text-slate-400">
-                Email: <code className="bg-slate-800 px-2 py-1 rounded">admin@example.com</code>
-              </p>
-              <p className="text-xs text-slate-400">
-                Password: <code className="bg-slate-800 px-2 py-1 rounded">admin123</code>
-              </p>
-              <p className="text-xs text-slate-400 mt-2">
-                ⚠️ Create a new admin account first at: <code className="bg-slate-800 px-2 py-1 rounded text-xs">/api/admin/setup</code>
-              </p>
-            </div>
+            {/* Footer */}
+            <p className="mt-6 text-center text-xs text-[#777587]" style={{ fontFamily: 'Inter, sans-serif' }}>
+              Protected area. Unauthorized access is prohibited.
+            </p>
           </div>
         </div>
       </div>
@@ -133,19 +156,8 @@ export default function AdminPage() {
   }
 
   return (
-    <>
-      <div className="fixed top-4 right-4 z-50 flex gap-4">
-        <div className="px-4 py-2 bg-slate-700 text-slate-200 rounded-lg text-sm">
-          {isAuthenticated && `Logged in as: ${adminEmail}`}
-        </div>
-        <button
-          onClick={handleLogout}
-          className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold transition-colors"
-        >
-          Logout
-        </button>
-      </div>
-      <AdminDashboard />
-    </>
+    <div className="min-h-screen bg-[#faf8ff]">
+      <AdminDashboard onLogout={handleLogout} />
+    </div>
   );
 }
