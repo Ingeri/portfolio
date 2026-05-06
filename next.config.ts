@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'ingeri.netlify.app',
+        hostname: 'ingeri.vercel.app/',
       },
     ],
   },
