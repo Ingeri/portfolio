@@ -3,8 +3,8 @@ name: Keep Supabase Alive
 on:
   schedule:
     # Runs every Monday and Thursday at midnight UTC.
-    # Feel free to change to '0 0 */3 * *' if you prefer every 3 days.
-    - cron: '0 0 * * 1,4' 
+    # Feel free to change to '0 0 * * 1,4' if you prefer monday and thursday.
+    - cron: '0 0 */3 * *' 
   workflow_dispatch: # Allows you to manually trigger it anytime from the Actions tab
 
 jobs:
