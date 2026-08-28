@@ -4,7 +4,7 @@ on:
   schedule:
     # Runs every Monday and Thursday at midnight UTC.
     # Feel free to change to '0 0 * * 1,4' if you prefer monday and thursday.
-    - cron: '0 0 */3 * *' 
+    - cron: '0 0 * * *' 
   workflow_dispatch: # Allows you to manually trigger it anytime from the Actions tab
 
 jobs:
